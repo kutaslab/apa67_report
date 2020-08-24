@@ -1,0 +1,227 @@
+%% use this to make a free-standing pdf graphc instead of a paginated latex doc
+\documentclass[border=0in]{standalone}
+
+% dejavu san serif matches matplotlib default
+\usepackage{dejavu}
+\renewcommand*\familydefault{\sfdefault} % set base font to sans serif
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}  % math symbols
+%% \usepackage{pbox}
+\usepackage{tikz}
+
+\usetikzlibrary{arrows,shapes,backgrounds,shadows,fit,positioning,scopes, calc}
+
+%% whitesmoke background
+\definecolor{whitesmoke}{rgb}{.9607843137, .9607843137, .9607843137}
+
+%% style general layout 
+%\tikzstyle{background rectangle} = [fill=whitesmoke]
+\tikzstyle{background rectangle} = [fill=white]
+\tikzstyle{every node} = [outer sep=0pt, inner sep=3pt]
+
+%% define the plot label spec: #1=tag, #2=location, #3=text
+\def\plabel[#1]#2#3{
+  \node [left, scale=1.0] (#1) at (#2.north west) {#3};
+}
+
+\begin{document}
+\begin{tikzpicture}[
+    >=stealth,  %% shape of the annotation arrows 
+    show background rectangle,
+    %% inner frame sep=2mm  % sep = bleed or 0 for tight background
+]
+
+  % ------------------------------------------------------------
+  % Panel a  figure as generated
+  \coordinate (axy) at (0, 0);
+  \plabel[label-a]{axy}{a};
+  \node [
+    anchor=north west,
+    rectangle, 
+    fill=whitesmoke
+  ] (p3-head-pdf) at (label-a.north east){
+    \includegraphics[height=1in]{generated/p3_head_plot3.pdf}
+  };
+
+  \node[
+    xshift=.75in,
+    rectangle, 
+    fill=whitesmoke
+  ] (montage) at (p3-head-pdf.east){
+    \includegraphics[height=1in]{images/TopHead.pdf}
+  };
+
+    
+
+  % ------------------------------------------------------------
+  % Panel b TikZ layout and annotations
+
+  % crop top and bottom of generated pdf 
+  \newcommand{\tbtrim}{0.4in}
+  \newcommand{\mathfontscale}{2}
+
+  \coordinate [yshift=-0.5in] (bxy) at (p3-head-pdf.south west);
+  \plabel[label-b]{bxy}{b};
+
+  % P300 effect in a shadow box
+
+  % frame + drop shadow
+  \node (b-effect-box) [
+    anchor=north west,
+    draw=black!40,
+    fill=white,
+    rounded corners=4pt,
+    drop shadow,
+    minimum height=1.5in,
+    minimum width=1.9in
+  ]
+  at (label-b.south east) {};
+
+  % electrode scatter + colorbar
+  \node (p3-effect) at (b-effect-box) {
+    \includegraphics[
+      clip,
+      trim={8.1in, \tbtrim, 1.35in, \tbtrim},
+      height=1.125in
+    ]{generated/p3_head_plot3.pdf}
+    \includegraphics[
+      clip,
+      trim={11.75in, 0, 0, 0},
+      height=1.125in
+    ]{generated/p3_head_plot3.pdf}
+  };
+
+
+  % montage head
+  \node[
+    xshift=.2in,
+    yshift=-.2in,
+    opacity=.25
+  ] (montage) at (b-effect-box.north west){
+    \includegraphics[height=.25in]{images/TopHead.pdf}
+  };
+
+  % Title
+  \node [
+    anchor=south,
+    scale=.66
+  ] (effect-label) at (b-effect-box.north) {
+    P300 ERP effect (Target $-$ Standard)
+  };
+
+  % annotation text
+  \node [
+    anchor=north west,
+    xshift=0.025in,
+    yshift=0.05in,
+    scale=.5
+  ] (post-pointer) at (p3-effect.south) {
+    posterior maximum
+  };
+
+  % annotation arrow
+  \coordinate [xshift=-0.03in, yshift=-0.425in] (RDPa) at (p3-effect);
+  \draw [->] (post-pointer.north west) -- (RDPa);
+
+
+  % equals (=)
+  \node [scale=\mathfontscale, anchor=west] (text-equals) at (b-effect-box.east){$=$};
+
+  % P300 target
+  \node [anchor=west] (b-target) at (text-equals.east){
+    \includegraphics[
+      clip,
+      trim={4.25in, \tbtrim, 5.25in, \tbtrim},
+      height=1in
+    ]{generated/p3_head_plot3.pdf}
+
+
+  };
+  \node [anchor=south, scale=.66] (target-label) at (b-target.north) {
+    Target
+  };
+
+
+  % minus (-)
+  \node [scale=\mathfontscale, anchor=west] (text-minus) at (b-target.east){$-$};
+
+  % P300 standard
+  \node [anchor=west] (b-standard) at (text-minus.east){
+    \includegraphics[
+      clip,
+      trim={0.5in, \tbtrim, 9.0in, \tbtrim},
+      height=1in
+    ]{generated/p3_head_plot3.pdf}
+  };
+  \node [anchor=south, scale=.66] (standard-label) at (b-standard.north) {
+    Standard
+  };
+
+
+
+
+  
+
+
+
+\end{tikzpicture}
+\end{document}
+
+  % annotated box, located relative to B 
+  \coordinate [xshift=.4in, yshift=-.2in] (B_box_xy) at (B);
+  \draw [
+    label=B_box, color=magenta, rounded corners=2pt, thick,
+  ] (B_box_xy) rectangle ++(.4in, .4in);  %% ++ = relative move
+  \node [
+    xshift=.2in, yshift=.4in, 
+    anchor=south, scale=.5,
+    align=center, color=magenta
+  ] at (B_box_xy) {in phase};
+
+
+  % ------------------------------------------------------------
+  % Panel C) low alpha
+  \node [yshift=-.25in, anchor=north west] (C) at (B.south west){
+    \pltrim{2.5in}{nb_plots/epoch_100_low_alpha}
+  };
+  \plabel[tagB]{C}{C) Low alpha};
+
+  % annotated box, located relative to C 
+  \coordinate [xshift=.4in, yshift=-.2in] (C_box_xy) at (C);
+  \draw [
+    color=magenta, rounded corners=2pt, thick,
+  ] (C_box_xy) rectangle ++(.4in, .4in);  %% ++ = relative move
+  \node [
+    xshift=.2in, yshift=.4in, 
+    anchor=south, scale=.5,
+    align=center, color=magenta
+  ] at (C_box_xy) {out of phase?};
+
+
+  % ------------------------------------------------------------
+  % Panel D) high alpha
+  \node [yshift=-.25in, anchor=north west] (D) at (B.north east){
+    \pltrim{2.5in}{nb_plots/epoch_100_high_alpha}
+  };
+  % [tag][location]{text}
+  \plabel[tagB]{D}{D) High alpha};
+
+
+  % ------------------------------------------------------------
+  % Panel E) beta
+  \node [yshift=-.25in, anchor=north west] (E) at (C.north east){
+    \pltrim{2.5in}{nb_plots/epoch_100_beta}
+  };
+  % [tag][location]{text}
+  \plabel[tagB]{E}{E) beta};
+
+
+  % ------------------------------------------------------------
+  % decorations 
+  % top view head
+  \node [
+    xshift=0in, yshift=0in, opacity=0.8, anchor=north west, fill=white
+  ] (tophead) at (A.north west){
+    \includegraphics[width=.5in]{images/TopHead.pdf}
+  };
+

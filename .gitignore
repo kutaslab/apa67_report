@@ -1,0 +1,35 @@
+# emacs tmp files
+
+\#*
+\#*# 
+.#*#
+.#*
+*~
+
+# latex
+*.aux
+*.out
+*.log
+*.bbl
+*.blg
+*.toc
+
+
+# APA6th generated figs, tables
+*.ttt
+*.fff
+
+# generated docs and figures
+**/*.pdf
+research_report_plots_nb.tex
+
+# jupyter generated
+**/.ipynb_checkpoints
+research_report_plots_nb_files
+
+# minted
+_minted-*/
+
+
+# tmp files
+**/.nfs*
