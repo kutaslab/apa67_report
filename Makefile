@@ -7,6 +7,8 @@ HOME_DIR = /home/turbach/TPU_Projects/demos/latex/apa_6th_example
 # and generate the pdf plots that will appear in the ms and si Figures
 JUPYTER_CONVERT = jupyter nbconvert --ExecutePreprocessor.timeout=None --execute 
 
+export_env:
+	conda list --explicit > environment.txt
 
 # the minted syntax highlighting package insists on -shell-escape
 ms: 
@@ -22,12 +24,14 @@ si:
 	pdflatex -shell-escape author_si
 	pdflatex -shell-escape author_si
 
-# # for long-running jobs use --ExecutePreprocessor.timeout=None 
-analysis:
+bib:
+	pdflatex -shell-escape author_ms
+	pdflatex -shell-escape author_si
+	biber author_ms
+
+# for long-running jobs use --ExecutePreprocessor.timeout=None 
+analysis: export_env
 	jupyter nbconvert --execute --to pdf ./author_analysis.ipynb 
-
-
-gen_figs: analysis
 
 fig1: 
 	pdflatex author_fig1.tex
@@ -35,7 +39,7 @@ fig1:
 fig2: 
 	pdflatex author_fig2.tex
 
-figs: gen_figs fig1 fig2
+figs: analysis fig1 fig2
 
 
 # remove intermediate latex files aux, log and stash backup files
@@ -45,7 +49,7 @@ clean_aux:
 	if [ -e *~ ]; then mv *~ _bak; fi
 
 # multiple passes to get the zref cross-document cross references right
-all: figs si ms si ms si 
+all: figs bib si ms si ms si 
 
 
 # build everything then wipe the intermediate stuff

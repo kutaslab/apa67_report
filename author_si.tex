@@ -40,7 +40,8 @@
 
 
 \title{Supporting Information: APA 6th-style research reports with LaTeX{}: A not-especially
-  tongue-in-cheek reproduced reproducible research report report}
+  tongue-in-cheek reproduced reproducible research report report}\zlabel{si}
+
 \shorttitle{Supporting Information: Reproducible reports with LaTeX{}}
 \author{Thomas P. Urbach}
 \affiliation{Kutas Lab \\ Cognitive Science Department \\ University of California, San Diego}
@@ -93,28 +94,32 @@ APA 6th docs \url{http://ctan.math.utah.edu/ctan/tex-archive/macros/latex/contri
 
 \subsection{Installing conda environments}
 
-If you already use conda environments in a recent linux or OSX
-operation system, you can install a minimal environment to run the
-notebooks used for this report like so. 
+If you already use conda environments in a recent linux operating
+system, you can install a minimal conda environment to run the
+notebooks like so and follow the prompt (or omit -y to the end of the
+command to install the packages without prompting).
 
 \begin{minted}{bash}
-conda create -n apa6th_report python numpy pandas pyarrow scipy matplotlib jupyter
-$ conda create -n apa67_report numpy pandas matplotlib jupyter spudtr -c kutaslab -c defaults -c conda-forge
+conda create -n apa67_report pandas pyarrow matplotlib jupyter firefox -y
 $ activate apa67_report
 $ jupyter notebooks
 \end{minted}
 
-If you are not yet set up to use conda environments, you can follow the
-instructions to download and install a minimal conda installer,
-miniconda3. This provides just enough infrastructure to create a conda
-environemnt and install packages as shown in the example above.
+If you are not yet set up to use conda environments, you can follow
+the instructions to download and install a minimal conda installer,
+miniconda3
+(\href{https://docs.conda.io/en/latest/miniconda.html}). This provides
+just enough infrastructure to create a conda environemnt and install
+packages as shown in the example above. If you want to create conda
+environments and install packages faster, then install the `mamba`
+conda package (\href{https://mamba.readthedocs.io/en/latest/}).
 
 If you are not yet set up to use conda environments and don't want to
 be then you are on your own. You can run pipeline\_1.ipynb if you have
 numpy, pandas, matplotlib and jupyter.  You need the spudtr package to
-run pipeline\_2.ipynb. It is available via pip install, but there is no
-assurance it is compatible with the versions of packages you already
-have installed.
+run pipeline\_2.ipynb. Older versions are available via pip install,
+but there is no assurance it is compatible with the versions of
+packages you already have installed.
 
 \subsection{Installing \LaTeX}
 
