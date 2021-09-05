@@ -46,7 +46,6 @@ figs: analysis fig1 fig2
 # move
 clean_aux:
 	latexmk -c 
-	if [ -e *~ ]; then mv *~ _bak; fi
 
 # multiple passes to get the zref cross-document cross references right
 all: figs bib si ms si ms si 
