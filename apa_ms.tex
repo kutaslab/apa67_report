@@ -3,7 +3,7 @@
 \documentclass[helv,10pt,man,floatsintext]{apa6}  %% man <-> jou <-> doc
 \usepackage{csquotes}
 \usepackage[backend=biber,style=apa6]{biblatex}
-\addbibresource{author_ms.bib}
+\addbibresource{apa_ms.bib}
 
 % if you like line numbers ...
 \usepackage{lineno}
@@ -35,7 +35,7 @@
 % for cross-references back to the main doc
 % use \zref{} and \zlabel{} instead of latex native \ref{} and \label{}
 \usepackage[xr, user, titleref]{zref}
-\zexternaldocument{author_si}  % other .tex file to cross reference
+\zexternaldocument{apa_si}  % other .tex file to cross reference
 
 % to help control location of figures and tables
 % \usepackage{float}
@@ -230,7 +230,7 @@ Figure~\zref{ms:report_generation}.
 \end{figure}
 
 
-\subsection{Data analysis pipeline: \mintinline{bash}{author_analysis.ipynb}}
+\subsection{Data analysis pipeline: \mintinline{bash}{apa_analysis.ipynb}}
 
 For demonstration purposes, a toy reproducible data analysis pipeline
 is implemented in a Jupyter notebook running a Python
@@ -262,7 +262,7 @@ the Ti{\it k}Z graphic library without additional software or manual
 editing.
 
 
-\subsection{Manuscript: \mintinline{bash}{author_ms.tex}}
+\subsection{Manuscript: \mintinline{bash}{apa_ms.tex}}
 
 LaTeX{} is a form of markup language where
 the document text is intermingled with short typesetting
@@ -290,7 +290,7 @@ editor, although one that supports LaTeX syntax highlighting and
 indentation is {\bf strongly} recommended, e.g., emacs, vi/vim,
 sublime, among many others.
 
-\subsubsection{Supplementary Information: \mintinline{bash}{author_si.tex}}
+\subsubsection{Supplementary Information: \mintinline{bash}{apa_si.tex}}
 
 Supplementary Information is as much a part of the report as the
 manuscript and must be likewise reproducible. For demonstration here,
@@ -355,10 +355,10 @@ performance workstation.
 \item [\mintinline{bash}{make figs} (47 s)] Execute the analysis to generate the rough PDF graphic
   output files then make fig1 and fig2 as above. 
 
-\item [\mintinline{bash}{make ms} (9 s)] Run \mintinline{bash}{pdflatex author_ms.tex}
+\item [\mintinline{bash}{make ms} (9 s)] Run \mintinline{bash}{pdflatex apa_ms.tex}
   to generate the manuscript PDF.
 
-\item [\mintinline{bash}{make si} (4 s)] Run \mintinline{bash}{pdflatex author_si.tex}
+\item [\mintinline{bash}{make si} (4 s)] Run \mintinline{bash}{pdflatex apa_si.tex}
    to generate the Supporting Information PDF.
 
 \item [\mintinline{bash}{make all}] Run make figs to execute the
@@ -535,7 +535,7 @@ adds additional graphic and text annotations. The \LaTeX{} and Ti{\it
 
   \zlabel{ms:fig1}
   \centering
-  \includegraphics[width=.95\textwidth]{author_fig1.pdf}
+  \includegraphics[width=.95\textwidth]{apa_fig1.pdf}
 
 \end{figure}
 
@@ -548,7 +548,7 @@ adds additional graphic and text annotations. The \LaTeX{} and Ti{\it
     by post-processing the generated graphic with \LaTeX{} and the
     Ti{\it k}Z drawing library as part of the documentation generation
     pipeline. The data are the same as in Figure~\zref{ms:fig1}
-  }\zlabel{ms:fig2} \includegraphics[width=\textwidth]{author_fig2.pdf}
+  }\zlabel{ms:fig2} \includegraphics[width=\textwidth]{apa_fig2.pdf}
 \end{figure}
 
 

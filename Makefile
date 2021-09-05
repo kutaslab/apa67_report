@@ -12,32 +12,32 @@ export_env:
 
 # the minted syntax highlighting package insists on -shell-escape
 ms: 
-	pdflatex -shell-escape author_ms
-	biber author_ms
-	pdflatex -shell-escape author_ms
-	pdflatex -shell-escape author_ms
+	pdflatex -shell-escape apa_ms
+	biber apa_ms
+	pdflatex -shell-escape apa_ms
+	pdflatex -shell-escape apa_ms
 
 
 si: 
-	pdflatex -shell-escape author_si
-	biber author_ms
-	pdflatex -shell-escape author_si
-	pdflatex -shell-escape author_si
+	pdflatex -shell-escape apa_si
+	biber apa_ms
+	pdflatex -shell-escape apa_si
+	pdflatex -shell-escape apa_si
 
 bib:
-	pdflatex -shell-escape author_ms
-	pdflatex -shell-escape author_si
-	biber author_ms
+	pdflatex -shell-escape apa_ms
+	pdflatex -shell-escape apa_si
+	biber apa_ms
 
 # for long-running jobs use --ExecutePreprocessor.timeout=None 
 analysis: export_env
-	jupyter nbconvert --execute --to pdf ./author_analysis.ipynb 
+	jupyter nbconvert --execute --to pdf ./apa_analysis.ipynb 
 
 fig1: 
-	pdflatex author_fig1.tex
+	pdflatex apa_fig1.tex
 
 fig2: 
-	pdflatex author_fig2.tex
+	pdflatex apa_fig2.tex
 
 figs: analysis fig1 fig2
 
