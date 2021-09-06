@@ -1,4 +1,4 @@
-Analyzing open science data in style: A reproducible reproducible research report report
+Open science with style: A reproducible reproducible research report
 
 We gratefully acknowledge the support of grants NICHD 5R01HD022614 and
 1R01AG048252-01A1 for the development of these resources.
